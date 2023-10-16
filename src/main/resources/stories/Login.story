@@ -10,4 +10,5 @@ When User logs in with the next data:
 | login      | password |
 | default    | 1q2w3e   |
 And On Common RP page, user clicks on the 'LAUNCHES' tab
+And On Common RP page, user clicks on the 'FILTERS' tab
 And User closes the current browser window

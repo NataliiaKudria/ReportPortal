@@ -11,4 +11,8 @@
           class="steps.LoginPageSteps">
     </bean>
 
+    <bean id="commonStepsBean"
+          class="steps.CommonSteps">
+    </bean>
+
 </beans>

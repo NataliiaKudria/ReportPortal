@@ -15,8 +15,4 @@ public class LoginPage {
     public By getSubmitButton() {
         return By.tagName("button");
     }
-
-    public By getLaunchesTab() {
-        return By.xpath("//div[contains(@class,'top-block')]/div[2]");
-    }
 }
