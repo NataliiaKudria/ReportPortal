@@ -9,7 +9,7 @@ public class LoginPageSteps extends BaseSteps {
 
     @Given("User opens the '$url' web site")
     public void openSite(String url) {
-        getDriverManager().open(url);
+        getWebDriver().get(url);
     }
 
     @When("User logs in with the next data: $table")
@@ -21,15 +21,5 @@ public class LoginPageSteps extends BaseSteps {
         getElement(loginPage().getNameInput()).sendKeys(login);
         getElement(loginPage().getPasswordInput()).sendKeys(password);
         getElement(loginPage().getSubmitButton()).click();
-    }
-
-    @When("On Common RP page, user clicks on the 'LAUNCHES' tab")
-    public void clickOnTab() {
-        getElement(loginPage().getLaunchesTab()).click();
-    }
-
-    @When("User closes the current browser window")
-    public void closeBrowser() {
-        getDriverManager().closeDriver();
     }
 }
