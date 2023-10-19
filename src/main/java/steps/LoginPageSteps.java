@@ -18,8 +18,8 @@ public class LoginPageSteps extends BaseSteps {
         String login = parameters.valueAs("login", String.class);
         String password = parameters.valueAs("password", String.class);
 
-        getElement(loginPage().getNameInput()).sendKeys(login);
-        getElement(loginPage().getPasswordInput()).sendKeys(password);
-        getElement(loginPage().getSubmitButton()).click();
+        loginPage().getNameInput().sendKeys(login);
+        loginPage().getPasswordInput().sendKeys(password);
+        loginPage().getSubmitButton().click();
     }
 }

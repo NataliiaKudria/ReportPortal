@@ -2,11 +2,10 @@ package steps;
 
 import static drivermanager.CustomWebDriverManager.getDriverManagerInstance;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import pages.CommonPage;
 import pages.LoginPage;
+import pages.components.SideBarPage;
 import utils.CustomLogger;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,16 +21,17 @@ public class BaseSteps {
         return new LoginPage();
     }
 
+    public SideBarPage sideBarPage() {
+        return new SideBarPage();
+    }
+
     public CommonPage commonPage() {
         return new CommonPage();
     }
 
-    public WebElement getElement(By elem) {
-        return getWebDriver().findElement(elem);
-    }
-
     public void closeDriver() {
         CustomLogger.getLogger().info("Closing the current driver");
+        getWebDriver().manage().deleteAllCookies();
         getWebDriver().close();
         getWebDriver().quit();
         try {

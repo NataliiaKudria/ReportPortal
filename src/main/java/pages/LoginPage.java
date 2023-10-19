@@ -1,18 +1,19 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-public class LoginPage {
+public class LoginPage extends BasePage{
 
-    public By getNameInput() {
-        return By.xpath("//div[contains(@class,'login-field')]//input");
+    public WebElement getNameInput() {
+        return getElement(By.xpath("//div[contains(@class,'login-field')]//input"));
     }
 
-    public By getPasswordInput() {
-        return By.xpath("//div[contains(@class,'type-password')]//input");
+    public WebElement getPasswordInput() {
+        return getElement(By.xpath("//div[contains(@class,'type-password')]//input"));
     }
 
-    public By getSubmitButton() {
-        return By.tagName("button");
+    public WebElement getSubmitButton() {
+        return getElement(By.tagName("button"));
     }
 }
