@@ -2,6 +2,7 @@ package reporter;
 
 import org.jbehave.core.model.Story;
 import org.jbehave.core.reporters.NullStoryReporter;
+import org.jbehave.core.steps.Timing;
 import steps.BaseSteps;
 import utils.CustomLogger;
 
@@ -10,7 +11,7 @@ public class CustomStoryReporter extends NullStoryReporter {
     @Override
     public void successful(String step) {
         super.successful(step);
-        CustomLogger.getLogger().warn("Finished: {}", step);
+        CustomLogger.getLogger().info("Finished: {}", step);
     }
 
     @Override
@@ -25,9 +26,9 @@ public class CustomStoryReporter extends NullStoryReporter {
     }
 
     @Override
-    public void afterStory(boolean givenStory) {
+    public void afterScenario(Timing timing) {
         new BaseSteps().closeDriver();
-        super.afterStory(givenStory);
+        super.afterScenario(timing);
     }
 
     private void clearEmptySteps(Story story, boolean givenStory) {

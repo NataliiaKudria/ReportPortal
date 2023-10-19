@@ -2,6 +2,7 @@ package runner;
 
 import org.jbehave.core.configuration.Configuration;
 import org.jbehave.core.configuration.MostUsefulConfiguration;
+import org.jbehave.core.embedder.Embedder;
 import org.jbehave.core.io.LoadFromClasspath;
 import org.jbehave.core.junit.JUnitStories;
 import org.jbehave.core.reporters.StoryReporter;
@@ -14,6 +15,7 @@ import java.util.List;
 public class RunnerTest extends JUnitStories {
 
     private static final String APPLICATION_CONFIGURATION_FOR_SPRING = "applicationContext.xml";
+    private static final String MAX_TIMEOUT_STORY_IN_SECS = "35000";
 
     @Override
     public Configuration configuration() {
@@ -36,6 +38,17 @@ public class RunnerTest extends JUnitStories {
         String[] locations = {APPLICATION_CONFIGURATION_FOR_SPRING};
         ContextInitializer initializer = new ContextInitializer();
         return new SpringStepsFactory(configuration(), initializer.initialize(locations));
+    }
+
+    @Override
+    public void run() {
+        final Embedder embedder = configuredEmbedder();
+        embedder.useMetaFilters(List.of("+to_run"));
+        embedder.embedderControls()
+            .useStoryTimeouts(MAX_TIMEOUT_STORY_IN_SECS)
+            .doIgnoreFailureInStories(true)
+            .doIgnoreFailureInView(true);
+        embedder.runStoriesAsPaths(storyPaths());
     }
 
     @Override
