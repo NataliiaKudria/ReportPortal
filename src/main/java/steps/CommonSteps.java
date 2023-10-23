@@ -13,11 +13,6 @@ public class CommonSteps extends BaseSteps {
         sideBarPage().getLaunchesTab().click();
     }
 
-    @When("User closes the current window")
-    public void closeWindow() {
-        closeDriver();
-    }
-
     @When("On Common RP page in sidebar, user clicks on the 'PROJECTS SELECTOR' tab")
     public void clickOnProjectSelectorTab() {
         sideBarPage().getProjectsSelectorTab().click();

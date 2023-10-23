@@ -1,9 +1,12 @@
 package reporter;
 
+import static drivermanager.CustomWebDriverManager.closeDriver;
+import static drivermanager.CustomWebDriverManager.getDriverInstance;
+
+import org.jbehave.core.model.Scenario;
 import org.jbehave.core.model.Story;
 import org.jbehave.core.reporters.NullStoryReporter;
 import org.jbehave.core.steps.Timing;
-import steps.BaseSteps;
 import utils.CustomLogger;
 
 public class CustomStoryReporter extends NullStoryReporter {
@@ -27,8 +30,14 @@ public class CustomStoryReporter extends NullStoryReporter {
 
     @Override
     public void afterScenario(Timing timing) {
-        new BaseSteps().closeDriver();
+        closeDriver();
         super.afterScenario(timing);
+    }
+
+    @Override
+    public void beforeScenario(Scenario scenario) {
+        getDriverInstance();
+        super.beforeScenario(scenario);
     }
 
     private void clearEmptySteps(Story story, boolean givenStory) {
