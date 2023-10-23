@@ -10,8 +10,6 @@ repositories {
 }
 
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.9.1')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
     implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.14.0'
     implementation group: 'org.jbehave', name: 'jbehave-core', version: '5.2.0'
     implementation group: 'org.jbehave', name: 'jbehave-spring', version: '5.2.0'
