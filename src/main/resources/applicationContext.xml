@@ -15,4 +15,8 @@
           class="steps.CommonSteps">
     </bean>
 
+    <bean id="modalStepsBean"
+          class="steps.ModalSteps">
+    </bean>
+
 </beans>

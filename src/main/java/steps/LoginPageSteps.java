@@ -1,5 +1,7 @@
 package steps;
 
+import static drivermanager.CustomWebDriverManager.getDriverInstance;
+
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
@@ -9,7 +11,7 @@ public class LoginPageSteps extends BaseSteps {
 
     @Given("User opens the '$url' web site")
     public void openSite(String url) {
-        getWebDriver().get(url);
+        getDriverInstance().get(url);
     }
 
     @When("User logs in with the next data: $table")

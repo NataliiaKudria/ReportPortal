@@ -1,16 +1,18 @@
 package pages;
 
-import static drivermanager.CustomWebDriverManager.getDriverManagerInstance;
+import static drivermanager.CustomWebDriverManager.getDriverInstance;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import java.util.List;
 
 public class BasePage {
-    public WebDriver driver() {
-        return getDriverManagerInstance().getDriver();
-    }
+
     public WebElement getElement(By elem) {
-        return driver().findElement(elem);
+        return getDriverInstance().findElement(elem);
+    }
+
+    public List<WebElement> getElementList(By elem) {
+        return getDriverInstance().findElements(elem);
     }
 }
