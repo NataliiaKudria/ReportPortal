@@ -3,13 +3,14 @@ package steps;
 import org.jbehave.core.annotations.When;
 import org.openqa.selenium.WebElement;
 import utils.CustomLogger;
+import utils.FileHelper;
 import java.util.Random;
 
 public class ModalSteps extends BaseSteps {
 
     @When("On the 'ADD FILTER' modal, user fills in the name input field with random value and saves it to DataHolder")
     public void setFilterName() {
-        String filterName = getRandomString();
+        String filterName = getRandomStringFromFile("filterNaming");
         WebElement input = filterModal().getNameInputOnModal();
         clearAndThenFillInputField(input, filterName);
         unFocus();
@@ -26,14 +27,18 @@ public class ModalSteps extends BaseSteps {
         filterModal().getModalTitle().click();
     }
 
-    private String getRandomString() {
-        int leftLimit = 97;
-        int rightLimit = 122;
-        int targetStringLength = 10;
+    private String getRandomStringFromFile(String file) {
+        String initialText = deleteNonAlphabeticChars(new FileHelper().readFile(file));
+        StringBuilder builderForString = new StringBuilder();
         Random random = new Random();
-        return random.ints(leftLimit, rightLimit + 1)
-            .limit(targetStringLength)
-            .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-            .toString();
+        while (builderForString.length() < 7) {
+            int index = (int) (random.nextFloat() * initialText.length());
+            builderForString.append(initialText.charAt(index));
+        }
+        return builderForString.toString();
+    }
+
+    private String deleteNonAlphabeticChars(String string) {
+        return string.replaceAll("[^a-zA-Z]", "");
     }
 }
