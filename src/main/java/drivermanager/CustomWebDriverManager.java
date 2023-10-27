@@ -34,6 +34,10 @@ public class CustomWebDriverManager {
         return driver;
     }
 
+    public static void waitForTime(int time, TimeUnit timeUnit) {
+        driver.manage().timeouts().implicitlyWait(time, timeUnit);
+    }
+
     public static void closeDriver() {
         CustomLogger.getLogger().info("***********************************");
         CustomLogger.getLogger().info("Closing/Removing the current driver");

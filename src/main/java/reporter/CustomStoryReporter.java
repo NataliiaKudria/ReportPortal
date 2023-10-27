@@ -18,6 +18,13 @@ public class CustomStoryReporter extends NullStoryReporter {
     }
 
     @Override
+    public void failed(String step, Throwable cause) {
+        super.failed(step, cause);
+        CustomLogger.getLogger().error("Failed: {}", step);
+        CustomLogger.getLogger().error("Cause: {}", cause.getCause().getMessage());
+    }
+
+    @Override
     public void notPerformed(String step) {
         CustomLogger.getLogger().warn("Skipped: {}", step);
         super.notPerformed(step);

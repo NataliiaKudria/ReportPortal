@@ -1,15 +1,18 @@
 package steps;
 
+import static utils.StringUtils.getRandomStringFromFile;
+
 import org.jbehave.core.annotations.When;
 import org.openqa.selenium.WebElement;
 import utils.CustomLogger;
-import java.util.Random;
 
 public class ModalSteps extends BaseSteps {
 
+    private static final String FILE_NAME = "filterNaming";
+
     @When("On the 'ADD FILTER' modal, user fills in the name input field with random value and saves it to DataHolder")
     public void setFilterName() {
-        String filterName = getRandomString();
+        String filterName = getRandomStringFromFile(FILE_NAME, 7);
         WebElement input = filterModal().getNameInputOnModal();
         clearAndThenFillInputField(input, filterName);
         unFocus();
@@ -24,16 +27,5 @@ public class ModalSteps extends BaseSteps {
 
     private void unFocus() {
         filterModal().getModalTitle().click();
-    }
-
-    private String getRandomString() {
-        int leftLimit = 97;
-        int rightLimit = 122;
-        int targetStringLength = 10;
-        Random random = new Random();
-        return random.ints(leftLimit, rightLimit + 1)
-            .limit(targetStringLength)
-            .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-            .toString();
     }
 }
