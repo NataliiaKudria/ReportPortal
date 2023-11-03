@@ -5,8 +5,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static utils.StringUtils.getRandomStringFromFile;
 
+import static java.lang.String.format;
+
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
+import org.jbehave.core.model.ExamplesTable;
+import org.jbehave.core.steps.Parameters;
 import org.junit.Assert;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
@@ -23,6 +27,14 @@ public class CommonSteps extends BaseSteps {
     private static final String ADD_FILTER_BUTTON = "Add filter";
     private static final String SAVE_FILTER_BUTTON = "Save";
     private static final String ADD_BUTTON = "Add";
+    private static final String PASSED_TESTS = "passed";
+    private static final String TOTAL_TESTS = "total";
+    private static final String FAILED_TESTS = "failed";
+    private static final String SKIPPED_TESTS = "skipped";
+    private static final String NAME = "name";
+    private static final String START_TIME = "start";
+
+    private static final String PARAMETRIZED_INFO_MESSAGE = "%s row '%s' cell value is: %s";
 
     @When("On Main RP page, user clicks on the 'LAUNCHES' tab")
     public void clickOnTab() {
@@ -37,6 +49,12 @@ public class CommonSteps extends BaseSteps {
     @Then("On Main RP page in sidebar, user should see the 'PROJECTS SELECTOR' tab")
     public void getProjectSelectorTab() {
         assertTrue(sideBarPage().getProjectsSelectorTab().isDisplayed());
+    }
+
+    @When("User logs out")
+    public void logOut() {
+        sideBarPage().getUserIcon().click();
+        sideBarPage().getUserAccountOptions("Logout").click();
     }
 
     @When("On Main RP page in Project Selector dropdown, user selects '$projectName' project")
@@ -54,6 +72,44 @@ public class CommonSteps extends BaseSteps {
         List<WebElement> rows = mainPage().getListOfRowsInTable();
         int counter = Integer.parseInt(mainPage().getRowsNumberCounter().getText().split("of")[1].strip());
         Assert.assertEquals(counter, rows.size());
+    }
+
+    @Then("On Main RP page in 'LAUNCHES' results table, user should see the following data: $table")
+    public void checkDataInResultsTable(ExamplesTable table) {
+        for (int i = 0; i < table.getRows().size(); i++) {
+            Parameters parameters = table.getRowsAsParameters().get(i);
+            String name = parameters.valueAs(NAME, String.class);
+            String testStart = parameters.valueAs(START_TIME, String.class);
+            String totalTests = parameters.valueAs(TOTAL_TESTS, String.class);
+            String passedTests = parameters.valueAs(PASSED_TESTS, String.class);
+            String failedTests = parameters.valueAs(FAILED_TESTS, String.class);
+            String skippedTests = parameters.valueAs(SKIPPED_TESTS, String.class);
+
+            String actualName = mainPage().getNameCellValue(i, NAME).getText();
+            CustomLogger.getLogger().info(format(PARAMETRIZED_INFO_MESSAGE, i + 1, NAME, actualName));
+            assertEquals(name, actualName);
+
+            hover(mainPage().getCellByColumnAndRow(i, START_TIME));
+            String actualStartDate = mainPage().getStartTestCellValue(i).getText();
+            CustomLogger.getLogger().info(format(PARAMETRIZED_INFO_MESSAGE, i + 1, START_TIME, actualStartDate));
+            assertEquals(testStart, actualStartDate);
+
+            String actualTotalCount = mainPage().getCellByColumnAndRow(i, TOTAL_TESTS).getText();
+            CustomLogger.getLogger().info(format(PARAMETRIZED_INFO_MESSAGE, i + 1, TOTAL_TESTS, actualTotalCount));
+            assertEquals(totalTests, actualTotalCount);
+
+            String actualPassedCount = mainPage().getCellByColumnAndRow(i, PASSED_TESTS).getText();
+            CustomLogger.getLogger().info(format(PARAMETRIZED_INFO_MESSAGE, i + 1, PASSED_TESTS, actualPassedCount));
+            assertEquals(passedTests, actualPassedCount);
+
+            String actualFailedCount = mainPage().getCellByColumnAndRow(i, FAILED_TESTS).getText();
+            CustomLogger.getLogger().info(format(PARAMETRIZED_INFO_MESSAGE, i + 1, FAILED_TESTS, actualFailedCount));
+            assertEquals(failedTests, actualFailedCount);
+
+            String actualSkippedCount = mainPage().getCellByColumnAndRow(i, SKIPPED_TESTS).getText();
+            CustomLogger.getLogger().info(format(PARAMETRIZED_INFO_MESSAGE, i + 1, SKIPPED_TESTS, actualSkippedCount));
+            assertEquals(skippedTests, actualSkippedCount);
+        }
     }
 
     @When("User creates '$number' new launch {filter|filters} and saves {their names|it} to DataHolder")
@@ -113,6 +169,11 @@ public class CommonSteps extends BaseSteps {
         waitForTime(60, TimeUnit.SECONDS);
         List<String> newFilters = dataHolder.getListOfFilters().stream().sorted().collect(Collectors.toList());
         CustomLogger.getLogger().info("Filters list from DataHolder is: {}", newFilters);
+        waitForTime(60, TimeUnit.SECONDS);
+        WebElement launchTabButton = sideBarPage().getLaunchesTab();
+        if (!launchTabButton.isSelected()) {
+            launchTabButton.click();
+        }
         List<String> filtersFromUi = mainPage().getFilterList()
             .stream().map(WebElement::getText).sorted().collect(Collectors.toList());
         CustomLogger.getLogger().info("Filters list from UI is: {}", filtersFromUi);
@@ -134,9 +195,9 @@ public class CommonSteps extends BaseSteps {
     public void getFilter() {
         String expectedFilterValue = dataHolder.getName();
         CustomLogger.getLogger().info("The expected filter name value is: {}", expectedFilterValue);
-        Optional<WebElement> filterName = mainPage().getFilterList().stream().filter(newFilter -> newFilter.getText()
-            .equals(expectedFilterValue)).findAny();
-        assertTrue(filterName.isPresent());
+        List<String> filterNames = mainPage().getFilterList().stream().map(WebElement::getText)
+            .collect(Collectors.toList());
+        assertTrue(filterNames.contains(expectedFilterValue));
     }
 
     @When("On Main RP page on the header, user deletes just created filter")

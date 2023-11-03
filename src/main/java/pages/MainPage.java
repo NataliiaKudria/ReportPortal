@@ -24,6 +24,21 @@ public class MainPage extends BasePage {
         return getElement(By.xpath(format("//span[text()='%s']/parent::button", btnName)));
     }
 
+    public WebElement getCellByColumnAndRow(int row, String columnTitle) {
+        return getElementList(By.cssSelector("[class*='row-wrapper']"))
+            .get(row).findElement(By.xpath(".//div[contains(@class,'__grid-row--')][1]"))
+            .findElement(By.cssSelector(format("[class*='Grid__%s']", columnTitle)));
+    }
+
+    public WebElement getNameCellValue(int row, String columnTitle) {
+        return getCellByColumnAndRow(row, columnTitle).findElement(By.cssSelector("[class*='itemInfo__main-info']"));
+    }
+
+    public WebElement getStartTestCellValue(int row) {
+        return getElementList(By.cssSelector("[class*='row-wrapper']"))
+            .get(row).findElement(By.cssSelector("[class*='_absolute-time-'"));
+    }
+
     public WebElement getNewLaunchNameInput() {
         return getElement(By.xpath("//div[contains(@class,'input-conditional')]/input"));
     }

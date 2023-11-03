@@ -18,4 +18,13 @@ public class SideBarPage extends BasePage {
     public WebElement getProjectsSelectorDropdown(String project) {
         return getElement(By.xpath(format("//div[contains(@class,'projects-list')]//a/span[text()='%s']", project)));
     }
+
+    public WebElement getUserIcon() {
+        return getElement(By.cssSelector("[class*='userBlock__user-block']"));
+    }
+
+    public WebElement getUserAccountOptions(String option) {
+        return getElement(By.xpath(format("//div[contains(@class,'userBlock__menu--')]" +
+            "//*[text()='%s']", option)));
+    }
 }

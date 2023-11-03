@@ -1,7 +1,10 @@
 package steps;
 
+import static drivermanager.CustomWebDriverManager.getDriverInstance;
+
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import pages.MainPage;
 import pages.LoginPage;
 import pages.components.AddFilterModal;
@@ -33,5 +36,10 @@ public class BaseSteps {
             element.sendKeys(Keys.CONTROL + "a", Keys.BACK_SPACE);
         }
         element.sendKeys(value);
+    }
+
+    public void hover(WebElement element) {
+        Actions action = new Actions(getDriverInstance());
+        action.moveToElement(element).build().perform();
     }
 }

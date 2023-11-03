@@ -8,6 +8,7 @@ import org.jbehave.core.model.Story;
 import org.jbehave.core.reporters.NullStoryReporter;
 import org.jbehave.core.steps.Timing;
 import utils.CustomLogger;
+import java.util.Map;
 
 public class CustomStoryReporter extends NullStoryReporter {
 
@@ -39,6 +40,14 @@ public class CustomStoryReporter extends NullStoryReporter {
     public void afterScenario(Timing timing) {
         closeDriver();
         super.afterScenario(timing);
+    }
+
+    @Override
+    public void example(Map<String, String> tableRow, int exampleIndex) {
+        CustomLogger.getLogger().info("--------------------------------------------------");
+        CustomLogger.getLogger().info("EXAMPLE'{}' IS RUNNING...", exampleIndex + 1);
+        CustomLogger.getLogger().info("--------------------------------------------------");
+        super.example(tableRow, exampleIndex);
     }
 
     @Override
