@@ -195,6 +195,7 @@ public class CommonSteps extends BaseSteps {
     public void getFilter() {
         String expectedFilterValue = dataHolder.getName();
         CustomLogger.getLogger().info("The expected filter name value is: {}", expectedFilterValue);
+        waitForTime(4000, TimeUnit.MILLISECONDS);
         List<String> filterNames = mainPage().getFilterList().stream().map(WebElement::getText)
             .collect(Collectors.toList());
         assertTrue(filterNames.contains(expectedFilterValue));

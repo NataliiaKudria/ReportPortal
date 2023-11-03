@@ -1,6 +1,6 @@
 Scenario: 1.Check that the number of runs is correctly displayed in the table
 Meta:
-!-- @to_run
+@to_run
 Given User opens the 'http://localhost:8080/ui/#login' web site
 When User logs in with the next data:
 | login   | password |
@@ -14,7 +14,7 @@ And On Main RP page, user verifies that the number of rows in the table is equal
 
 Scenario: 2.Check that the user can add the new filter for launch
 Meta:
-!-- @to_run
+@to_run
 Given User opens the 'http://localhost:8080/ui/#login' web site
 When User logs in with the next data:
 | login   | password |
@@ -33,7 +33,7 @@ When On Main RP page on the header, user deletes just created filter
 
 Scenario: 3.Check that the user can add a few new filters for launch
 Meta:
-!-- @to_run
+@to_run
 Given User opens the 'http://localhost:8080/ui/#login' web site
 When User logs in with the next data:
 | login   | password |

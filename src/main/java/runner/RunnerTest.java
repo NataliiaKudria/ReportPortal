@@ -44,7 +44,7 @@ public class RunnerTest extends JUnitStories {
         return new SpringStepsFactory(configuration(), initializer.initialize(locations));
     }
 
-    @org.testng.annotations.Test(invocationCount = 0, threadPoolSize = 1)
+//    @org.testng.annotations.Test(invocationCount = 0, threadPoolSize = 1)
     @Override
     public void run() {
         final Embedder embedder = configuredEmbedder();

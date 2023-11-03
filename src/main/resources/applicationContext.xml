@@ -19,4 +19,8 @@
           class="steps.ModalSteps">
     </bean>
 
+    <bean id="customHooksBean"
+          class="hooks.CustomHooks">
+    </bean>
+
 </beans>
