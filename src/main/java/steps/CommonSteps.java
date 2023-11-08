@@ -1,8 +1,12 @@
 package steps;
 
 import static drivermanager.CustomWebDriverManager.waitForTime;
+import static drivermanager.CustomWebDriverManager.waitUntilPageLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static utils.TimeConstants.LONG_WAIT_MILLISECONDS;
+import static utils.TimeConstants.SHORT_WAIT_MILLISECONDS;
+import static utils.TimeConstants.WAIT_SHORT_SECONDS;
 import static utils.StringUtils.getRandomStringFromFile;
 
 import static java.lang.String.format;
@@ -90,6 +94,7 @@ public class CommonSteps extends BaseSteps {
             assertEquals(name, actualName);
 
             hover(mainPage().getCellByColumnAndRow(i, START_TIME));
+            waitForTime(LONG_WAIT_MILLISECONDS, TimeUnit.MILLISECONDS);
             String actualStartDate = mainPage().getStartTestCellValue(i).getText();
             CustomLogger.getLogger().info(format(PARAMETRIZED_INFO_MESSAGE, i + 1, START_TIME, actualStartDate));
             assertEquals(testStart, actualStartDate);
@@ -135,14 +140,18 @@ public class CommonSteps extends BaseSteps {
 
     @When("User deletes all newly created filters that were saved to DataHolder")
     public void deleteNewFilters() {
-        waitForTime(50, TimeUnit.SECONDS);
+        waitForTime(WAIT_SHORT_SECONDS, TimeUnit.SECONDS);
         List<String> newFilters = dataHolder.getListOfFilters();
         deleteFilters(newFilters);
     }
 
+    @When("User waits some time until page is loaded")
+    public void waitUntilLoaded() {
+        waitUntilPageLoaded();
+    }
+
     @When("On the Main page, user deletes all filters from UI")
     public void deleteAllFilters() {
-        waitForTime(50, TimeUnit.SECONDS);
         Optional<List<String>> list = Optional.of(mainPage().getFilterList()
             .stream().map(WebElement::getText).collect(Collectors.toList()));
         if (!list.get().isEmpty()) {
@@ -166,10 +175,9 @@ public class CommonSteps extends BaseSteps {
 
     @Then("User verifies that newly created and saved to DataHolder filters are all displayed on UI")
     public void checkNewFiltersDisplayed() {
-        waitForTime(60, TimeUnit.SECONDS);
         List<String> newFilters = dataHolder.getListOfFilters().stream().sorted().collect(Collectors.toList());
         CustomLogger.getLogger().info("Filters list from DataHolder is: {}", newFilters);
-        waitForTime(60, TimeUnit.SECONDS);
+        waitForTime(WAIT_SHORT_SECONDS, TimeUnit.SECONDS);
         WebElement launchTabButton = sideBarPage().getLaunchesTab();
         if (!launchTabButton.isSelected()) {
             launchTabButton.click();
@@ -195,7 +203,7 @@ public class CommonSteps extends BaseSteps {
     public void getFilter() {
         String expectedFilterValue = dataHolder.getName();
         CustomLogger.getLogger().info("The expected filter name value is: {}", expectedFilterValue);
-        waitForTime(4000, TimeUnit.MILLISECONDS);
+        waitForTime(SHORT_WAIT_MILLISECONDS, TimeUnit.MILLISECONDS);
         List<String> filterNames = mainPage().getFilterList().stream().map(WebElement::getText)
             .collect(Collectors.toList());
         assertTrue(filterNames.contains(expectedFilterValue));

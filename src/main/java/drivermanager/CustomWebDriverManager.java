@@ -1,12 +1,18 @@
 package drivermanager;
 
+import static utils.TimeConstants.WAIT_EXTREMELY_LONG_SECONDS;
+import static utils.TimeConstants.WAIT_SECONDS;
+
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.CustomLogger;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -30,12 +36,19 @@ public class CustomWebDriverManager {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(80, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(WAIT_SECONDS, TimeUnit.SECONDS);
         return driver;
     }
 
     public static void waitForTime(int time, TimeUnit timeUnit) {
         driver.manage().timeouts().implicitlyWait(time, timeUnit);
+    }
+
+    public static void waitUntilPageLoaded() {
+        WebDriverWait waiter =  new WebDriverWait(driver, Duration.ofSeconds(WAIT_EXTREMELY_LONG_SECONDS));
+        waiter.until(
+            webDriver -> ((JavascriptExecutor) webDriver)
+                .executeScript("return document.readyState").equals("complete"));
     }
 
     public static void closeDriver() {
