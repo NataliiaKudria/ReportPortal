@@ -1,12 +1,15 @@
-Scenario: 1.Check that the number of runs is correctly displayed in the table
-Meta:
-@to_run
+Lifecycle:
+Before:
 Given User opens the 'https://rp.epam.com/ui/#login' web site
 When User logs in with the next data:
 | login               | password |
 | DefaultPersonalUser | 1q2w3e4r |
 And User navigates back
 And On Log In page, user clicks on the 'Login' button
+
+Scenario: 1.Check that the number of runs is correctly displayed in the table
+Meta:
+@to_run
 Then On Main RP page in sidebar, user should see the 'PROJECTS SELECTOR' tab
 When On Main RP page in sidebar, user clicks on the 'PROJECTS SELECTOR' tab
 And On Main RP page in Project Selector dropdown, user selects 'defaultpersonaluser_personal' project
@@ -16,13 +19,7 @@ And On Main RP page, user verifies that the number of rows in the table is equal
 
 Scenario: 2.Check that the user can add the new filter for launch
 Meta:
-!-- @to_run
-Given User opens the 'https://rp.epam.com/ui/#login' web site
-When User logs in with the next data:
-| login               | password |
-| DefaultPersonalUser | 1q2w3e4r |
-And User navigates back
-And On Log In page, user clicks on the 'Login' button
+@to_run
 Then On Main RP page in sidebar, user should see the 'PROJECTS SELECTOR' tab
 When On Main RP page in sidebar, user clicks on the 'PROJECTS SELECTOR' tab
 And On Main RP page in Project Selector dropdown, user selects 'defaultpersonaluser_personal' project
@@ -38,13 +35,7 @@ When On Main RP page on the header, user deletes just created filter
 
 Scenario: 3.Check that the user can add a few new filters for launch
 Meta:
-!-- @to_run
-Given User opens the 'https://rp.epam.com/ui/#login' web site
-When User logs in with the next data:
-| login               | password |
-| DefaultPersonalUser | 1q2w3e4r |
-And User navigates back
-And On Log In page, user clicks on the 'Login' button
+@to_run
 Then On Main RP page in sidebar, user should see the 'PROJECTS SELECTOR' tab
 When On Main RP page in sidebar, user clicks on the 'PROJECTS SELECTOR' tab
 And On Main RP page in Project Selector dropdown, user selects 'defaultpersonaluser_personal' project
@@ -65,12 +56,6 @@ Examples:
 Scenario: 3.Check the 'ALL LAUNCHES" results table.
 Meta:
 @to_run
-Given User opens the 'https://rp.epam.com/ui/#login' web site
-When User logs in with the next data:
-| login               | password |
-| DefaultPersonalUser | 1q2w3e4r |
-And User navigates back
-And On Log In page, user clicks on the 'Login' button
 Then On Main RP page in sidebar, user should see the 'PROJECTS SELECTOR' tab
 When On Main RP page in sidebar, user clicks on the 'PROJECTS SELECTOR' tab
 And On Main RP page in Project Selector dropdown, user selects 'defaultpersonaluser_personal' project

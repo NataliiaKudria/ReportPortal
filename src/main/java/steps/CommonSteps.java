@@ -4,6 +4,7 @@ import static drivermanager.CustomWebDriverManager.waitForTime;
 import static drivermanager.CustomWebDriverManager.waitUntilPageLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static utils.TimeConstants.LONG_WAIT_MILLISECONDS;
 import static utils.TimeConstants.SHORT_WAIT_MILLISECONDS;
 import static utils.TimeConstants.WAIT_SHORT_SECONDS;
 import static utils.StringUtils.getRandomStringFromFile;
@@ -93,7 +94,7 @@ public class CommonSteps extends BaseSteps {
             assertEquals(name, actualName);
 
             hover(mainPage().getCellByColumnAndRow(i, START_TIME));
-            waitForTime(SHORT_WAIT_MILLISECONDS, TimeUnit.MILLISECONDS);
+            waitForTime(LONG_WAIT_MILLISECONDS, TimeUnit.MILLISECONDS);
             String actualStartDate = mainPage().getStartTestCellValue(i).getText();
             CustomLogger.getLogger().info(format(PARAMETRIZED_INFO_MESSAGE, i + 1, START_TIME, actualStartDate));
             assertEquals(testStart, actualStartDate);
