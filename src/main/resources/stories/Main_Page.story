@@ -53,7 +53,7 @@ Examples:
 | 1      |
 | 3      |
 
-Scenario: 3.Check the 'ALL LAUNCHES" results table.
+Scenario: 3.Check the 'ALL LAUNCHES' results table.
 Meta:
 @to_run
 Then On Main RP page in sidebar, user should see the 'PROJECTS SELECTOR' tab

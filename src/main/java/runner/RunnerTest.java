@@ -59,7 +59,8 @@ public class RunnerTest extends JUnitStories {
 
     @Override
     public List<String> storyPaths() {
-        return List.of("./stories/Login.story", "stories/Main_Page.story");
+        return List.of("./stories/Login.story", "stories/Main_Page.story",
+            "stories/Rest_Endpoint.story");
     }
 }
 

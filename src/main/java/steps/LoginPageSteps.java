@@ -28,6 +28,11 @@ public class LoginPageSteps extends BaseSteps {
         waitForTime(LONG_WAIT_MILLISECONDS, TimeUnit.MILLISECONDS);
     }
 
+    @When("via Rest user gets all the launches")
+    public void getLaunchesViaRest() {
+        apiClient().getResponse("launches");
+    }
+
     @When("User logs in with the next data: $table")
     public void fillNameInput(ExamplesTable table) {
         Parameters parameters = table.getRowsAsParameters().get(0);
