@@ -9,6 +9,7 @@ import pages.MainPage;
 import pages.LoginPage;
 import pages.components.AddFilterModal;
 import pages.components.SideBarPage;
+import rest.RestApiClient;
 import utils.DataHolder;
 
 public class BaseSteps {
@@ -29,6 +30,10 @@ public class BaseSteps {
 
     public AddFilterModal filterModal() {
         return new AddFilterModal();
+    }
+
+    public RestApiClient apiClient() {
+        return new RestApiClient();
     }
 
     public void clearAndThenFillInputField(WebElement element, String value) {
