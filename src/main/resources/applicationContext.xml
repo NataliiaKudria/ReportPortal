@@ -23,4 +23,8 @@
           class="hooks.CustomHooks">
     </bean>
 
+    <bean id="restStepsBean"
+          class="steps.RestSteps">
+    </bean>
+
 </beans>
