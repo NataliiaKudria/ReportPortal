@@ -4,7 +4,7 @@ import static org.testng.AssertJUnit.assertEquals;
 
 import org.jbehave.core.annotations.When;
 import utils.CustomLogger;
-import utils.Post;
+import utils.dto.Post;
 import java.util.List;
 
 public class RestSteps extends BaseSteps {
