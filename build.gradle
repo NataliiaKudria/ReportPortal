@@ -26,6 +26,7 @@ dependencies {
     implementation group: 'commons-codec', name: 'commons-codec', version: '1.16.0'
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.16.0'
     implementation group: 'com.codeborne', name: 'selenide', version: '6.19.0'
+    implementation group: 'com.codeborne', name: 'selenide-testng', version: '6.19.0'
 }
 
 test {
