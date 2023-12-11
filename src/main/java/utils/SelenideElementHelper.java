@@ -14,4 +14,8 @@ public class SelenideElementHelper {
     public static SelenideElement findByTag(String tag) {
         return $(By.tagName(tag));
     }
+
+    public static SelenideElement findByCss(String css) {
+        return $(By.cssSelector(css));
+    }
 }
