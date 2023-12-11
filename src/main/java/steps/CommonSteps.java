@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 
 public class CommonSteps extends BaseSteps {
 
-    private static final String FILE_FOR_FILTER_NAMING = "filterNaming";
+    public static final String FILE_FOR_FILTER_NAMING = "filterNaming";
     private static final String ADD_FILTER_BUTTON = "Add filter";
     private static final String SAVE_FILTER_BUTTON = "Save";
     private static final String ADD_BUTTON = "Add";
